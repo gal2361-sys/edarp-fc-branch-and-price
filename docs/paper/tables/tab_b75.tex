@@ -1,0 +1,22 @@
+{\small\setlength{\tabcolsep}{3pt}
+\begin{tabular}{lrrrlrrrlrrr}
+\toprule
+ & \multicolumn{4}{c}{B\&P, pricing 30 s} & \multicolumn{4}{c}{B\&P, pricing 120 s} & \multicolumn{3}{c}{Compact+VI} \\
+\cmidrule(lr){2-5}\cmidrule(lr){6-9}\cmidrule(lr){10-12}
+Instance & LB & UB & Gap (\%) & UB source & LB & UB & Gap (\%) & UB source & LB & UB & Gap (\%) \\
+\midrule
+b75\_0 & 17.63 & 90.05 & 80.4 & initial & 18.21 & 64.85 & 71.9 & int. master & 12.77 & 65.10 & 80.4 \\
+b75\_1 & -3.66 & 109.15 & -- & initial & 1.98 & 109.15 & 98.2 & initial & 12.85 & 61.00 & 78.9 \\
+b75\_2 & 20.19 & 70.35 & 71.3 & int. master & 22.87 & 69.30 & 67.0 & int. master & 14.85 & 79.30 & 81.3 \\
+b75\_3 & -8.24 & 93.70 & -- & initial & 20.09 & 93.70 & 78.6 & initial & 14.14 & 74.60 & 81.0 \\
+b75\_4 & 3.99 & 68.25 & 94.2 & int. master & 21.80 & 68.25 & 68.1 & int. master & 11.85 & 77.05 & 84.6 \\
+b75\_5 & -12.74 & 81.15 & -- & initial & -13.41 & 81.15 & -- & initial & 10.16 & 69.75 & 85.4 \\
+b75\_6 & 11.04 & 108.15 & 89.8 & initial & 9.99 & 108.15 & 90.8 & initial & 13.33 & 67.50 & 80.3 \\
+b75\_7 & 12.14 & -- & -- & -- & 10.48 & -- & -- & -- & 12.29 & 74.05 & 83.4 \\
+b75\_8 & 16.16 & 65.20 & 75.2 & int. master & 17.82 & 102.80 & 82.7 & initial & 10.40 & 68.75 & 84.9 \\
+b75\_9 & 15.05 & 66.10 & 77.2 & int. master & 14.16 & 112.25 & 87.4 & initial & 13.54 & 65.45 & 79.3 \\
+\midrule
+Shifted geo.\ mean gap (6 of 10) &  &  & 81.0 &  &  &  & 77.4 &  &  &  & 81.8 \\
+Our LB higher than compact & \multicolumn{4}{l}{4 of 10} & \multicolumn{4}{l}{6 of 10} &  &  &  \\
+\bottomrule
+\end{tabular}}

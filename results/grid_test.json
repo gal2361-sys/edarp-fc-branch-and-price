@@ -1,0 +1,13 @@
+{
+ "passed": true,
+ "step": 0.025,
+ "test": "tests/test_grid.py::test_generated_columns_lie_on_the_grid",
+ "cases": [
+  "toy_6_0",
+  "toy_6_1",
+  "toy_10_2",
+  "b25_0"
+ ],
+ "date": "2026-09-29",
+ "note": "every column in the pool after a tree run has cost*40 within 1e-6 of an integer"
+}

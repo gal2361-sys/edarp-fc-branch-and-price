@@ -1,0 +1,23 @@
+{\small\setlength{\tabcolsep}{3pt}
+\begin{tabular}{lrrrllrrrr}
+\toprule
+ & \multicolumn{5}{c}{B\&P} & \multicolumn{3}{c}{Compact+VI} &  \\
+\cmidrule(lr){2-6}\cmidrule(lr){7-9}
+Instance & LB & UB & Gap (\%) & LB kind & UB source & LB & UB & Gap (\%) & Published \\
+\midrule
+b50\_0 & 54.68 & 56.90 & 3.9 & lagrangian & int. master & 41.45 & 56.75 & 27.0 & 56.75$^*$ \\
+b50\_1 & 49.52 & 53.20 & 6.9 & lagrangian & int. master & 43.95 & 53.30 & 17.5 & 53.20 \\
+b50\_2 & 47.99 & 52.00 & 7.7 & lagrangian & int. master & 26.06 & 53.60 & 51.4 & 52.00 \\
+b50\_3 & 52.50 & 53.05 & 1.0 & lp & int. master & 53.05 & 53.05 & 0.0 & 53.05 \\
+b50\_4 & 50.34 & 57.10 & 11.8 & lagrangian & int. master & 38.11 & 57.40 & 33.6 & 57.10 \\
+b50\_5 & 49.93 & 53.70 & 7.0 & lagrangian & int. master & 42.51 & 53.70 & 20.8 & 53.70 \\
+b50\_6 & 42.40 & 46.20 & 8.2 & lagrangian & int. master & 42.21 & 45.95 & 8.1 & 45.95 \\
+b50\_7 & 55.49 & 56.20 & 1.3 & lagrangian & int. master & 50.03 & 56.20 & 11.0 & 56.20 \\
+b50\_8 & 52.30 & 52.30 & 0.0 & optimal & int. master & 36.49 & 52.30 & 30.2 & 52.30 \\
+b50\_9 & 41.83 & 52.40 & 20.2 & lagrangian & int. master & 46.55 & 52.40 & 11.2 & 52.40 \\
+\midrule
+Shifted geo.\ mean gap (10 of 10) &  &  & 4.6 &  &  &  &  & 14.6 &  \\
+Our LB higher than compact & \multicolumn{5}{l}{8 of 10} &  &  &  &  \\
+\bottomrule
+\end{tabular}}
+% $^*$ best known value (data/solutions), not proven optimal

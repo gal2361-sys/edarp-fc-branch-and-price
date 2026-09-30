@@ -1,0 +1,12 @@
+# per-run outputs stay local (see results/README.md); summaries are tracked
+results/*
+!results/README.md
+!results/summary_*.csv
+!results/summary_*.json
+!results/grid_test.json
+!results/dp_prototype_report.json
+.venv/
+*.lic
+__pycache__/
+.pytest_cache/
+.DS_Store

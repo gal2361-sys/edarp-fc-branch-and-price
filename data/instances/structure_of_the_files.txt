@@ -1,0 +1,18 @@
+Instance files
+--------------
+
+First line:
+# customers, vehicle capacity, battery usage per lap, end of time horizon
+
+Next lines:
+customer id, pickup position, delivery position, earliest pickup time, load
+
+
+Circuit files
+-------------
+
+First line:
+# stops, stop duration
+
+Next lines:
+travel times between subsequent stops
