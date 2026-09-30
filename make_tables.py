@@ -30,6 +30,9 @@ ABLATIONS = [("abl_full", "Full configuration"), ("abl_no_lns", "No LNS pricing"
              ("abl_no_vi", "No valid inequalities"), ("abl_no_earlystop", "No early stop"),
              ("abl_stab", "Dual stabilisation")]
 GAP_SHIFT = 1.0      # percentage points, for the shifted geometric mean of gaps
+# fig_bounds_b50_all: size in inches, font sizes in pt, line width in pt
+FIG_STYLE = {"figsize": (13, 6), "tick": 11, "label": 12, "inst": 11, "legend": 12,
+             "lw": 1.4, "marker": 6}
 used: dict[str, list[str]] = {}
 
 
@@ -312,15 +315,16 @@ def plot_bounds(ax, inst: str, tag: str, fig_key: str,
             for series, alpha in ((lb, 1.0), (ub, 0.55)):
                 last = [(tt, v) for tt, v in zip(t, series) if not math.isnan(v)]
                 if last and last[-1][1] >= 0:
-                    ax.plot(*last[-1], marker="o", markersize=4, color="C0", alpha=alpha,
+                    ax.plot(*last[-1], marker="o", markersize=FIG_STYLE["marker"],
+                            color="C0", alpha=alpha,
                             linestyle="none", clip_on=False, zorder=5)
     if ours.get("published") is not None:
-        ax.axhline(ours["published"], color="0.4", linewidth=0.8, linestyle=":",
+        ax.axhline(ours["published"], color="0.4", linestyle=":",
                    label="Published")
     elif best_known_ref:
         bk = best_known(inst, fig_key)
         if bk is not None:
-            ax.axhline(bk, color="0.4", linewidth=0.8, linestyle=":", label="Best known")
+            ax.axhline(bk, color="0.4", linestyle=":", label="Best known")
     # the objective is non-negative, so a bound below 0 carries no information;
     # early Lagrangian bounds can be very negative and would flatten the plot
     ax.set_ylim(bottom=0)
@@ -332,32 +336,37 @@ def plot_bounds(ax, inst: str, tag: str, fig_key: str,
 
 def figures(tags: dict) -> None:
     """fig_bounds_b50_all: bounds over time for all 10 b50 instances (2 x 5)."""
-    fig, axes = plt.subplots(2, 5, figsize=(13, 5), sharex=False)
-    for z, ax in enumerate(axes.flat):
-        inst = f"b50_{z}"
-        plot_bounds(ax, inst, tags["b50"], "fig_bounds_b50_all",
-                    mark_final=True, best_known_ref=True)
-        ax.text(0.03, 0.97, inst, transform=ax.transAxes, ha="left", va="top", fontsize=8,
-                bbox=dict(facecolor="white", edgecolor="none", alpha=0.9, pad=1.5), zorder=6)
-        if z % 5:
-            ax.set_ylabel("")
-        if z < 5:
-            ax.set_xlabel("")
-    # one shared legend above the panels (an in-panel legend hides curves)
     from matplotlib.lines import Line2D
-    handles = [Line2D([], [], color="C0", label="B&P LB"),
-               Line2D([], [], color="C0", alpha=0.55, label="B&P UB"),
-               Line2D([], [], color="C1", linestyle="--", label="Compact+VI LB"),
-               Line2D([], [], color="C1", linestyle="--", alpha=0.55, label="Compact+VI UB"),
-               Line2D([], [], color="C0", marker="o", markersize=4, linestyle="none",
-                      label="B&P final value"),
-               Line2D([], [], color="0.4", linewidth=0.8, linestyle=":",
-                      label="Published (b50_0: best known)")]
-    fig.legend(handles=handles, loc="upper center", ncol=6, fontsize=8, frameon=False)
-    fig.tight_layout(rect=(0, 0, 1, 0.95))
-    fig.savefig(os.path.join(FIG, "fig_bounds_b50_all.pdf"))
-    fig.savefig(os.path.join(FIG, "fig_bounds_b50_all.png"), dpi=150)
-    plt.close(fig)
+    rc = {"xtick.labelsize": FIG_STYLE["tick"], "ytick.labelsize": FIG_STYLE["tick"],
+          "axes.labelsize": FIG_STYLE["label"], "lines.linewidth": FIG_STYLE["lw"]}
+    with plt.rc_context(rc):
+        fig, axes = plt.subplots(2, 5, figsize=FIG_STYLE["figsize"], sharex=False)
+        for z, ax in enumerate(axes.flat):
+            inst = f"b50_{z}"
+            plot_bounds(ax, inst, tags["b50"], "fig_bounds_b50_all",
+                        mark_final=True, best_known_ref=True)
+            ax.text(0.03, 0.97, inst, transform=ax.transAxes, ha="left", va="top",
+                    fontsize=FIG_STYLE["inst"], zorder=6,
+                    bbox=dict(facecolor="white", edgecolor="none", alpha=0.9, pad=1.5))
+            if z % 5:
+                ax.set_ylabel("")
+            if z < 5:
+                ax.set_xlabel("")
+        # one shared legend above the panels (an in-panel legend hides curves)
+        handles = [Line2D([], [], color="C0", label="B&P LB"),
+                   Line2D([], [], color="C0", alpha=0.55, label="B&P UB"),
+                   Line2D([], [], color="C1", linestyle="--", label="Compact+VI LB"),
+                   Line2D([], [], color="C1", linestyle="--", alpha=0.55, label="Compact+VI UB"),
+                   Line2D([], [], color="C0", marker="o", markersize=FIG_STYLE["marker"],
+                          linestyle="none", label="B&P final value"),
+                   Line2D([], [], color="0.4", linestyle=":",
+                          label="Published (b50_0: best known)")]
+        fig.legend(handles=handles, loc="upper center", ncol=3,
+                   fontsize=FIG_STYLE["legend"], frameon=False)
+        fig.tight_layout(rect=(0, 0, 1, 0.88))
+        fig.savefig(os.path.join(FIG, "fig_bounds_b50_all.pdf"))
+        fig.savefig(os.path.join(FIG, "fig_bounds_b50_all.png"), dpi=150)
+        plt.close(fig)
 
 
 def main() -> None:
