@@ -1,0 +1,88 @@
+{
+ "instance": "b75_3",
+ "method": "branch_and_price",
+ "scorer": "most_fractional",
+ "seed": 0,
+ "tag": "tree_v1",
+ "status": "time_limit",
+ "ub": null,
+ "lb": 19.770558545694108,
+ "gap": null,
+ "root_lb": 19.770558545694108,
+ "root_lb_kind": "lagrangian",
+ "lb_kind": "lagrangian",
+ "nodes": 1,
+ "nodes_processed": 1,
+ "nodes_pruned": 0,
+ "nodes_open_at_end": 2,
+ "max_depth": 1,
+ "columns_generated": 5963,
+ "columns_initial": 75,
+ "pricing_calls": 234,
+ "time_total": 1810.1199831250124,
+ "time_pricing": 1798.6499900297495,
+ "time_scorer": 0.00015608395915478468,
+ "bound_log": [
+  [
+   1810.1199509169674,
+   19.770558545694108,
+   null
+  ]
+ ],
+ "published": null,
+ "matches_published": null,
+ "incumbent": [],
+ "node_log": [
+  {
+   "id": 0,
+   "parent": null,
+   "depth": 0,
+   "branch": null,
+   "together": [],
+   "apart": [],
+   "parent_lb": null,
+   "blocked_columns": 0,
+   "lb": 19.770558545694108,
+   "lb_raw": 19.770558545694108,
+   "lb_kind": "lagrangian",
+   "lp_value": 70.58888888888889,
+   "pricing_proven": false,
+   "artificial_active": false,
+   "colgen_iterations": 148,
+   "prove_timed_out": false,
+   "n_candidates": 1176,
+   "branch_on": [
+    7,
+    25,
+    0.44444444444444775
+   ],
+   "outcome": "branched",
+   "children": [
+    1,
+    2
+   ],
+   "columns_added": 5963,
+   "time": 1809.7573250420392
+  }
+ ],
+ "config": {
+  "time_limit": 1800.0,
+  "node_time_limit": 1800.0,
+  "scorer": "most_fractional",
+  "seed": 0,
+  "pricing_time_limit": 30.0,
+  "pool_size": 50,
+  "artificial_cost": null,
+  "ip_time_limit": 10.0,
+  "restricted_k": 20,
+  "early_stop": 5,
+  "lns_time": 2.0,
+  "prove_time_limit": 1200.0,
+  "no_dual_pruning": false,
+  "no_valid_inequalities": false,
+  "quiet": true
+ },
+ "artificial_cost": 99.45,
+ "artificial_cost_final": 99.45,
+ "circuit": "circuit_artificial_instances_3.txt"
+}

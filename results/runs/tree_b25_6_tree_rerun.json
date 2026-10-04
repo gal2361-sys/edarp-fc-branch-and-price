@@ -1,0 +1,139 @@
+{
+ "instance": "b25_6",
+ "method": "branch_and_price",
+ "scorer": "most_fractional",
+ "seed": 0,
+ "tag": "tree_rerun",
+ "status": "optimal",
+ "ub": 23.549999999999997,
+ "lb": 23.549999999999997,
+ "gap": 0.0,
+ "root_lb": 23.549999999999997,
+ "root_lb_kind": "lp",
+ "lb_kind": "optimal",
+ "nodes": 1,
+ "nodes_processed": 1,
+ "nodes_pruned": 1,
+ "nodes_open_at_end": 0,
+ "max_depth": 0,
+ "columns_generated": 1419,
+ "columns_initial": 25,
+ "pricing_calls": 76,
+ "time_total": 177.27186808304396,
+ "time_pricing": 176.9879416746553,
+ "time_scorer": 0.0,
+ "bound_log": [
+  [
+   80.18619470810518,
+   -6.8059136424168365,
+   null
+  ],
+  [
+   93.83628537505865,
+   1.2898611542730727,
+   null
+  ],
+  [
+   136.10542383312713,
+   23.099999999999177,
+   null
+  ],
+  [
+   162.33808725012932,
+   23.549998734475455,
+   null
+  ],
+  [
+   177.27175483305473,
+   23.549999999999997,
+   23.549999999999997
+  ]
+ ],
+ "published": 23.55,
+ "matches_published": true,
+ "incumbent": [
+  [
+   3,
+   4,
+   7,
+   9,
+   14,
+   16,
+   18
+  ],
+  [
+   0,
+   6,
+   10,
+   11,
+   17,
+   19,
+   22,
+   24
+  ],
+  [
+   1,
+   2,
+   5,
+   8,
+   12,
+   13,
+   15,
+   20,
+   21,
+   23
+  ]
+ ],
+ "incumbent_source": "integer master",
+ "initial_solution": null,
+ "grid_step": null,
+ "node_log": [
+  {
+   "id": 0,
+   "parent": null,
+   "depth": 0,
+   "branch": null,
+   "together": [],
+   "apart": [],
+   "parent_lb": null,
+   "blocked_columns": 0,
+   "lb": 23.549999999999997,
+   "lb_raw": 23.549999999999997,
+   "lb_kind": "lp",
+   "lp_value": 23.549999999999997,
+   "pricing_proven": true,
+   "artificial_active": false,
+   "colgen_iterations": 44,
+   "prove_timed_out": false,
+   "lagrangian_lb": 23.549998734475455,
+   "lagrangian_lb_iteration": 43,
+   "outcome": "pruned_by_bound",
+   "columns_added": 1419,
+   "time": 177.12489254190587
+  }
+ ],
+ "config": {
+  "time_limit": 1800.0,
+  "node_time_limit": 600.0,
+  "scorer": "most_fractional",
+  "seed": 0,
+  "pricing_time_limit": 30.0,
+  "pool_size": 50,
+  "artificial_cost": null,
+  "ip_time_limit": 10.0,
+  "restricted_k": 20,
+  "early_stop": 5,
+  "lns_time": 2.0,
+  "prove_time_limit": 1200.0,
+  "no_dual_pruning": false,
+  "no_valid_inequalities": false,
+  "initial_solution": false,
+  "initial_time": 5.0,
+  "initial_repair_time": 60.0,
+  "grid_round": false,
+  "quiet": true
+ },
+ "artificial_cost": 32.3,
+ "artificial_cost_final": 32.3,
+ "circuit": "circuit_artificial_instances_6.txt"
+}

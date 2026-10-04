@@ -1,0 +1,205 @@
+{
+ "instance": "b50_8",
+ "method": "branch_and_price",
+ "scorer": "most_fractional",
+ "seed": 0,
+ "tag": "tree_v2",
+ "status": "optimal",
+ "ub": 52.3,
+ "lb": 52.3,
+ "gap": 0.0,
+ "root_lb": 52.3,
+ "root_lb_kind": "lp",
+ "lb_kind": "optimal",
+ "nodes": 1,
+ "nodes_processed": 1,
+ "nodes_pruned": 1,
+ "nodes_open_at_end": 0,
+ "max_depth": 0,
+ "columns_generated": 4536,
+ "columns_initial": 50,
+ "pricing_calls": 211,
+ "time_total": 1603.8817438750993,
+ "time_pricing": 1580.1988696659682,
+ "time_scorer": 0.0,
+ "bound_log": [
+  [
+   23.105456459103152,
+   null,
+   56.14999999999999
+  ],
+  [
+   111.92918641713914,
+   -165.13356668297953,
+   56.14999999999999
+  ],
+  [
+   134.18431545910425,
+   -155.50809589939306,
+   56.14999999999999
+  ],
+  [
+   173.59124579210766,
+   -89.06608243346764,
+   56.14999999999999
+  ],
+  [
+   273.14490954217035,
+   -44.5076446188999,
+   56.14999999999999
+  ],
+  [
+   305.9140121671371,
+   -40.21375816749065,
+   56.14999999999999
+  ],
+  [
+   355.36232358415145,
+   13.456375175428022,
+   56.14999999999999
+  ],
+  [
+   811.032871334115,
+   50.38173076922841,
+   56.14999999999999
+  ],
+  [
+   1397.3625757921254,
+   51.531358006744895,
+   56.14999999999999
+  ],
+  [
+   1603.7351884591626,
+   52.29999700000001,
+   56.14999999999999
+  ],
+  [
+   1603.8817180000478,
+   52.3,
+   52.3
+  ]
+ ],
+ "published": 52.3,
+ "matches_published": true,
+ "incumbent": [
+  [
+   0,
+   6,
+   12,
+   14,
+   15,
+   16,
+   23,
+   29,
+   30,
+   34,
+   40,
+   41,
+   46,
+   47,
+   49
+  ],
+  [
+   8,
+   9,
+   11,
+   17,
+   18,
+   19,
+   20,
+   21,
+   24,
+   26,
+   27,
+   28,
+   32,
+   33,
+   35,
+   38,
+   43
+  ],
+  [
+   1,
+   2,
+   3,
+   4,
+   5,
+   7,
+   10,
+   13,
+   22,
+   25,
+   31,
+   36,
+   37,
+   39,
+   42,
+   44,
+   45,
+   48
+  ]
+ ],
+ "incumbent_source": "integer master",
+ "initial_solution": {
+  "covered": true,
+  "cost": 56.14999999999999,
+  "n_columns": 3,
+  "uncovered": [],
+  "time": 22.883212374988943,
+  "stages": {
+   "after_sequential": 2,
+   "after_repair": 2,
+   "after_ruin_recreate": 0
+  }
+ },
+ "grid_step": null,
+ "node_log": [
+  {
+   "id": 0,
+   "parent": null,
+   "depth": 0,
+   "branch": null,
+   "together": [],
+   "apart": [],
+   "parent_lb": null,
+   "blocked_columns": 0,
+   "lb": 52.3,
+   "lb_raw": 52.3,
+   "lb_kind": "lp",
+   "lp_value": 52.3,
+   "pricing_proven": true,
+   "artificial_active": false,
+   "colgen_iterations": 138,
+   "prove_timed_out": false,
+   "lagrangian_lb": 52.29999700000001,
+   "lagrangian_lb_iteration": 138,
+   "outcome": "pruned_by_bound",
+   "columns_added": 4536,
+   "time": 1580.7760852079373
+  }
+ ],
+ "config": {
+  "time_limit": 1800.0,
+  "node_time_limit": 1800.0,
+  "scorer": "most_fractional",
+  "seed": 0,
+  "pricing_time_limit": 30.0,
+  "pool_size": 50,
+  "artificial_cost": null,
+  "ip_time_limit": 10.0,
+  "restricted_k": 20,
+  "early_stop": 5,
+  "lns_time": 2.0,
+  "prove_time_limit": 1200.0,
+  "no_dual_pruning": false,
+  "no_valid_inequalities": false,
+  "initial_solution": true,
+  "initial_time": 5.0,
+  "initial_repair_time": 60.0,
+  "grid_round": false,
+  "quiet": true
+ },
+ "artificial_cost": 64.6,
+ "artificial_cost_final": 64.6,
+ "circuit": "circuit_artificial_instances_8.txt"
+}

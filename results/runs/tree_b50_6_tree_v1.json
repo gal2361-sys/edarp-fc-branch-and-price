@@ -1,0 +1,187 @@
+{
+ "instance": "b50_6",
+ "method": "branch_and_price",
+ "scorer": "most_fractional",
+ "seed": 0,
+ "tag": "tree_v1",
+ "status": "time_limit",
+ "ub": 45.95,
+ "lb": 45.94999585105555,
+ "gap": 9.029258880415491e-08,
+ "root_lb": 45.94999585105555,
+ "root_lb_kind": "lagrangian",
+ "lb_kind": "lagrangian",
+ "nodes": 2,
+ "nodes_processed": 2,
+ "nodes_pruned": 0,
+ "nodes_open_at_end": 3,
+ "max_depth": 2,
+ "columns_generated": 7490,
+ "columns_initial": 50,
+ "pricing_calls": 266,
+ "time_total": 1800.174843374989,
+ "time_pricing": 1798.4900345058413,
+ "time_scorer": 3.38749960064888e-05,
+ "bound_log": [
+  [
+   1722.486777166021,
+   45.94999585105555,
+   45.95
+  ]
+ ],
+ "published": 45.95,
+ "matches_published": true,
+ "incumbent": [
+  [
+   0,
+   2,
+   19,
+   22,
+   23,
+   24,
+   36,
+   37,
+   38,
+   39,
+   40,
+   42,
+   45,
+   46,
+   47
+  ],
+  [
+   1,
+   5,
+   6,
+   7,
+   12,
+   17,
+   18,
+   20,
+   26,
+   28,
+   29,
+   32,
+   33,
+   34,
+   35,
+   41,
+   48
+  ],
+  [
+   3,
+   4,
+   8,
+   9,
+   10,
+   11,
+   13,
+   14,
+   15,
+   16,
+   21,
+   25,
+   27,
+   30,
+   31,
+   43,
+   44,
+   49
+  ]
+ ],
+ "node_log": [
+  {
+   "id": 0,
+   "parent": null,
+   "depth": 0,
+   "branch": null,
+   "together": [],
+   "apart": [],
+   "parent_lb": null,
+   "blocked_columns": 0,
+   "lb": 45.94999585105555,
+   "lb_raw": 45.94999585105555,
+   "lb_kind": "lagrangian",
+   "lp_value": 45.95,
+   "pricing_proven": false,
+   "artificial_active": false,
+   "colgen_iterations": 192,
+   "prove_timed_out": false,
+   "n_candidates": 0,
+   "branch_on": [
+    0,
+    2,
+    1.0,
+    "fallback"
+   ],
+   "outcome": "branched",
+   "children": [
+    1,
+    2
+   ],
+   "columns_added": 7490,
+   "time": 1722.280305415974
+  },
+  {
+   "id": 1,
+   "parent": 0,
+   "depth": 1,
+   "branch": [
+    0,
+    2,
+    "together"
+   ],
+   "together": [
+    [
+     0,
+     2
+    ]
+   ],
+   "apart": [],
+   "parent_lb": 45.94999585105555,
+   "blocked_columns": 4055,
+   "lb": 45.94999585105555,
+   "lb_raw": 15.919359414807836,
+   "lb_kind": "lagrangian",
+   "lp_value": 45.95,
+   "pricing_proven": false,
+   "artificial_active": false,
+   "colgen_iterations": 2,
+   "prove_timed_out": true,
+   "n_candidates": 0,
+   "branch_on": [
+    0,
+    2,
+    1.0,
+    "fallback"
+   ],
+   "outcome": "branched",
+   "children": [
+    3,
+    4
+   ],
+   "columns_added": 0,
+   "time": 77.68781895795837
+  }
+ ],
+ "config": {
+  "time_limit": 1800.0,
+  "node_time_limit": 1800.0,
+  "scorer": "most_fractional",
+  "seed": 0,
+  "pricing_time_limit": 30.0,
+  "pool_size": 50,
+  "artificial_cost": null,
+  "ip_time_limit": 10.0,
+  "restricted_k": 20,
+  "early_stop": 5,
+  "lns_time": 2.0,
+  "prove_time_limit": 1200.0,
+  "no_dual_pruning": false,
+  "no_valid_inequalities": false,
+  "quiet": true
+ },
+ "artificial_cost": 62.9,
+ "artificial_cost_final": 62.9,
+ "circuit": "circuit_artificial_instances_6.txt"
+}

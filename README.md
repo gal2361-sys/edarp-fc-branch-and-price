@@ -25,7 +25,10 @@ python3.14 -m venv .venv
 ```
 
 All results were obtained on an Apple M4 (10 cores, 16 GiB RAM), macOS 15.7.1, with
-Gurobi's default thread count (up to 10). Running times depend on the machine.
+Gurobi's default thread count (up to 10). Running times depend on the machine. Every
+run is limited to 30 minutes. The committed summaries took 38 hours of sequential
+compute in total (the sum of `time_total`): 25 hours for the b50 and b75 tree batches,
+9.6 hours for the b50 and b75 compact baseline, and about 3.5 hours for everything on b25.
 
 ## Data
 
@@ -51,7 +54,8 @@ n = 25, 50, 75 and z = 0..9 are used; the Renmark files are included but unteste
 Instance `b{n}_{z}` is paired with circuit `z`. Parameters not in the files come from
 the paper: beta_c = 1, beta_m = 11, V = 3 (n = 25, 50) and 4 (n = 75), latest dropoff
 d_i = a_i + 1.5 × delta_i + 15. With these, the compact model reproduces the published
-optima of b25_0, b25_1 and b25_2.
+optima of all ten b25 instances (compact model with the valid inequalities,
+`results/summary_compact_vi_b25.csv`).
 
 **Solution file** `data/solutions/b{n}_{z}_best_solution.txt`: objective, total delay,
 number of laps, then per vehicle one line per lap, `Lap l[b]: node[time,load,station] ...`
@@ -89,13 +93,41 @@ after every node), `--scorer most_fractional`, `--initial-solution` (on),
 instances of each size sequentially and writes `results/summary_<name>.csv` (the name
 defaults to the tag). Run one batch at a time; timings are part of the results.
 
-| table | summaries it reads | commands |
-|---|---|---|
-| `tab_b25` | `tree_v1_b25`, `compact_vi_b25` | `run_batch.py tree b25 --tag tree_v1 --summary tree_v1_b25 -- --no-initial-solution` and `run_batch.py compact b25 --tag compact_vi_b25 -- --valid-inequalities --time-limit 1800` |
-| `tab_b50` | `tree_v2_b50`, `compact_vi_b50_b75` | `run_batch.py tree b50 --tag tree_v2 --summary tree_v2_b50 -- --node-time-limit 1800` and `run_batch.py compact b50 b75 --tag compact_vi_b50_b75 -- --valid-inequalities --time-limit 1800` |
-| `tab_b75` | `tree_v2_b75`, `tree_v2_p120_b75`, `compact_vi_b50_b75` | `run_batch.py tree b75 --tag tree_v2 --summary tree_v2_b75 -- --node-time-limit 1800`, the same with `--tag tree_v2_p120 --summary tree_v2_p120_b75 -- --node-time-limit 1800 --pricing-time-limit 120`, and the compact batch above |
-| `tab_ablation` | `abl_*` | `run_batch.py root b25 --tag <t> --summary <t> -- <flags>` for `abl_full` (no flags), `abl_no_lns` (`--lns-time 0`), `abl_no_restricted` (`--restricted-k 0`), `abl_no_pruning` (`--no-dual-pruning`), `abl_no_vi` (`--no-valid-inequalities`), `abl_no_earlystop` (`--early-stop 0`), `abl_stab` (`--stabilize`) |
-| `tab_dp` | `dp_prototype_report.json` | `python dp_report.py` (needs `results/root_b50_0_artfix600.json` from `run_root.py b50_0 --time-limit 600 --tag artfix600`) |
+| table | summaries it reads |
+|---|---|
+| `tab_b25` | `tree_v1_b25`, `compact_vi_b25` |
+| `tab_b50` | `tree_v2_b50`, `compact_vi_b50_b75` |
+| `tab_b75` | `tree_v2_b75`, `tree_v2_p120_b75`, `compact_vi_b50_b75` |
+| `tab_ablation` | the seven `abl_*` summaries |
+| `tab_dp` | `dp_prototype_report.json` |
+
+The commands, per table (each batch writes its per-run JSONs to `results/` and its
+summary to `results/summary_<name>.csv`):
+
+```
+# tab_b25
+python run_batch.py tree b25 --tag tree_v1 --summary tree_v1_b25 -- --no-initial-solution
+python run_batch.py compact b25 --tag compact_vi_b25 -- --valid-inequalities --time-limit 1800
+
+# tab_b50 and tab_b75 (the compact batch serves both)
+python run_batch.py tree b50 --tag tree_v2 --summary tree_v2_b50 -- --node-time-limit 1800
+python run_batch.py tree b75 --tag tree_v2 --summary tree_v2_b75 -- --node-time-limit 1800
+python run_batch.py tree b75 --tag tree_v2_p120 --summary tree_v2_p120_b75 -- --node-time-limit 1800 --pricing-time-limit 120
+python run_batch.py compact b50 b75 --tag compact_vi_b50_b75 -- --valid-inequalities --time-limit 1800
+
+# tab_ablation (root column generation on b25, one acceleration off at a time)
+python run_batch.py root b25 --tag abl_full --summary abl_full --
+python run_batch.py root b25 --tag abl_no_lns --summary abl_no_lns -- --lns-time 0
+python run_batch.py root b25 --tag abl_no_restricted --summary abl_no_restricted -- --restricted-k 0
+python run_batch.py root b25 --tag abl_no_pruning --summary abl_no_pruning -- --no-dual-pruning
+python run_batch.py root b25 --tag abl_no_vi --summary abl_no_vi -- --no-valid-inequalities
+python run_batch.py root b25 --tag abl_no_earlystop --summary abl_no_earlystop -- --early-stop 0
+python run_batch.py root b25 --tag abl_stab --summary abl_stab -- --stabilize
+
+# tab_dp (reads the committed results/runs/root_b50_0_artfix600.json; to regenerate
+# that input first: python run_root.py b50_0 --time-limit 600 --tag artfix600)
+python dp_report.py
+```
 
 Notes on code versions:
 
@@ -115,12 +147,16 @@ Then:
 python make_tables.py
 ```
 
-It writes the five tables `docs/paper/tables/*.tex` and the figure
+It writes the five tables `docs/paper/tables/tab_{b25,b50,b75,ablation,dp}.tex`
+(plus `tab_b25_rerun.tex` from `results/summary_tree_rerun_b25.csv`, the b25 tree rerun
+with the final code and `--no-initial-solution`, when that summary exists) and the figure
 `docs/paper/figures/fig_bounds_b50_all.{pdf,png}` (lower and upper bounds over time for
 all 10 b50 instances, ours and compact+VI), and prints which files fed each one. The
 tables need only the tracked summaries, `results/dp_prototype_report.json` and
 `data/solutions/`. The figure also reads the per-run JSONs `tree_b50_*_tree_v2.json`
-and `compact_b50_*_vi.json`, which are not tracked (see `results/README.md`).
+and `compact_b50_*_vi.json`. All per-run JSONs behind the summaries, tables and figure
+are committed in `results/runs/` (see `results/README.md`); make_tables.py reads them
+from there, or from `results/` for runs made after cloning.
 `tab_b50` and `tab_b75` use the newest tree tag available (tree_v2, else tree_v1).
 
 ## Results and JSON contents
@@ -162,8 +198,8 @@ and `compact_b50_*_vi.json`, which are not tracked (see `results/README.md`).
 ## Tests
 
 ```
-pytest                 # 93 tests, about 25-40 minutes, needs Gurobi
-pytest -m "not slow"   # skips the 8 long exactness checks
+pytest                 # all 93 tests, about 25-30 minutes, needs Gurobi
+pytest -m "not slow"   # quick check: 85 tests, about 10 minutes (skips the 8 slow ones)
 ```
 
 The tests cover:

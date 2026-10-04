@@ -1,0 +1,11 @@
+instance,root_lb,root_lb_kind,lb,lb_kind,ub,ub_source,initial_ub,gap,status,nodes,nodes_pruned,max_depth,time_total,time_pricing,published,matches_published,exit_code
+b25_0,17.45,lp,17.45,optimal,17.45,integer master,,0.0,optimal,1,1,0,58.6195113749709,58.07017141673714,17.45,True,0
+b25_1,23.9,lp,24.0,optimal,24.0,integer master,,0.0,optimal,3,2,1,336.25750449998304,335.87452591513284,24.0,True,0
+b25_2,23.2,lp,23.2,optimal,23.2,integer master,,0.0,optimal,1,1,0,138.11038262501825,137.89378929219674,23.2,True,0
+b25_3,26.35,lp,26.35,optimal,26.35,integer master,,0.0,optimal,1,1,0,157.84000037505757,157.61121121281758,26.35,True,0
+b25_4,21.45,lp,21.45,optimal,21.45,integer master,,0.0,optimal,1,1,0,159.67252324998844,159.43895891227294,21.45,True,0
+b25_5,26.375,lp,26.5,optimal,26.5,integer master,,0.0,optimal,3,2,1,279.67602804198395,279.2959790850291,26.5,True,0
+b25_6,23.549999999999997,lp,23.549999999999997,optimal,23.549999999999997,integer master,,0.0,optimal,1,1,0,177.27186808304396,176.9879416746553,23.55,True,0
+b25_7,20.85,lp,20.85,optimal,20.85,integer master,,0.0,optimal,1,1,0,206.6545655829832,206.34877020900603,20.85,True,0
+b25_8,24.75,lp,24.75,optimal,24.75,integer master,,0.0,optimal,1,1,0,112.19633041706402,111.974870583741,24.75,True,0
+b25_9,24.95,lp,24.95,optimal,24.95,integer master,,0.0,optimal,1,1,0,101.32642350008246,101.09654245525599,24.95,True,0

@@ -5,6 +5,7 @@ results/*
 !results/summary_*.json
 !results/grid_test.json
 !results/dp_prototype_report.json
+!results/runs/
 .venv/
 *.lic
 __pycache__/

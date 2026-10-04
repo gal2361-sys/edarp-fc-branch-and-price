@@ -22,6 +22,7 @@ import matplotlib.pyplot as plt  # noqa: E402
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 RES = os.path.join(HERE, "results")
+RUNS = os.path.join(RES, "runs")      # committed per-run JSONs; new runs are written to RES
 TAB = os.path.join(HERE, "docs", "paper", "tables")
 FIG = os.path.join(HERE, "docs", "paper", "figures")
 TREE_TAGS = ["tree_v2", "tree_v1"]          # newest first
@@ -104,10 +105,11 @@ def by_instance(rows):
 
 # ------------------------------------------------------------------ tables
 
-def tab_b25() -> str:
-    tag = newest_tree("b25")
-    tree = read_csv(f"summary_{tag}_b25.csv", "tab_b25")
-    comp = by_instance(read_csv("summary_compact_vi_b25.csv", "tab_b25"))
+def tab_b25(tag: str | None = None, out: str = "tab_b25.tex") -> str:
+    tag = tag or newest_tree("b25")
+    key = out[:-4]
+    tree = read_csv(f"summary_{tag}_b25.csv", key)
+    comp = by_instance(read_csv("summary_compact_vi_b25.csv", key))
     L = [r"\begin{tabular}{lrrrrrrl}", r"\toprule",
          r"Instance & Root LB & UB & Nodes & Time (s) & Compact+VI time (s) & Published & Match \\",
          r"\midrule"]
@@ -123,7 +125,7 @@ def tab_b25() -> str:
     L += [r"\midrule",
           f"Geometric mean / optimal & & & {solved}/{len(tree)} & {fmt(gt, 0)} & {fmt(gc, 0)} & & \\\\",
           r"\bottomrule", r"\end{tabular}"]
-    write("tab_b25.tex", L)
+    write(out, L)
     return tag
 
 
@@ -281,6 +283,12 @@ def tab_dp() -> None:
 
 # ------------------------------------------------------------------ figures
 
+def run_file(name: str) -> str:
+    """Per-run JSON: the committed copy in results/runs/, else a fresh one in results/."""
+    committed = os.path.join(RUNS, name)
+    return committed if os.path.exists(committed) else os.path.join(RES, name)
+
+
 def bound_series(log, lb_i=1, ub_i=2):
     t, lb, ub = [], [], []
     for e in log:
@@ -297,8 +305,8 @@ def plot_bounds(ax, inst: str, tag: str, fig_key: str,
     best_known_ref: without a published optimum, draw the best-known value from
     data/solutions as the dotted reference line."""
     z = inst.split("_")[1]
-    ours = read_json(os.path.join(RES, f"tree_{inst}_{tag}.json"), fig_key)
-    comp = read_json(os.path.join(RES, f"compact_{inst}_c{z}_vi.json"), fig_key)
+    ours = read_json(run_file(f"tree_{inst}_{tag}.json"), fig_key)
+    comp = read_json(run_file(f"compact_{inst}_c{z}_vi.json"), fig_key)
     t_end = max(ours["time_total"], comp["time_total"])
     for data, name, style in ((ours, "B&P", "-"), (comp, "Compact+VI", "--")):
         t, lb, ub = bound_series(data["bound_log"])
@@ -373,6 +381,9 @@ def main() -> None:
     os.makedirs(TAB, exist_ok=True)
     os.makedirs(FIG, exist_ok=True)
     tags = {"b25": tab_b25(), "b50": tab_size("b50"), "b75": tab_size("b75")}
+    # b25 rerun with the final code (--no-initial-solution), kept separate from tab_b25
+    if os.path.exists(os.path.join(RES, "summary_tree_rerun_b25.csv")):
+        tags["b25 rerun"] = tab_b25("tree_rerun", "tab_b25_rerun.tex")
     fig_tags = {"b50": tags["b50"][0]}
     tab_ablation()
     tab_dp()

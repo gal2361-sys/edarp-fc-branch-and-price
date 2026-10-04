@@ -1,0 +1,268 @@
+{
+ "instance": "b50_3",
+ "method": "branch_and_price",
+ "scorer": "most_fractional",
+ "seed": 0,
+ "tag": "tree_v2",
+ "status": "time_limit",
+ "ub": 53.05,
+ "lb": 52.5,
+ "gap": 0.010367577756833123,
+ "root_lb": 52.5,
+ "root_lb_kind": "lp",
+ "lb_kind": "lp",
+ "nodes": 2,
+ "nodes_processed": 2,
+ "nodes_pruned": 0,
+ "nodes_open_at_end": 3,
+ "max_depth": 2,
+ "columns_generated": 8243,
+ "columns_initial": 50,
+ "pricing_calls": 348,
+ "time_total": 1800.7266299159965,
+ "time_pricing": 1783.22119059111,
+ "time_scorer": 7.716589607298374e-05,
+ "bound_log": [
+  [
+   15.299403207958676,
+   null,
+   69.25
+  ],
+  [
+   174.90800679090898,
+   -153.4940151901589,
+   69.25
+  ],
+  [
+   194.2848733739229,
+   -149.92546518392362,
+   69.25
+  ],
+  [
+   213.73811195790768,
+   -132.3549810212986,
+   69.25
+  ],
+  [
+   223.8479910409078,
+   -118.3503880559405,
+   69.25
+  ],
+  [
+   279.44171166594606,
+   -76.23393999390427,
+   69.25
+  ],
+  [
+   384.93081874900963,
+   9.522768359483862,
+   69.25
+  ],
+  [
+   430.68751083291136,
+   17.218618892163178,
+   69.25
+  ],
+  [
+   901.3185294989962,
+   51.41015625,
+   69.25
+  ],
+  [
+   1296.8382661240175,
+   52.37499883333006,
+   69.25
+  ],
+  [
+   1538.9574892909732,
+   52.499997,
+   69.25
+  ],
+  [
+   1539.573348582955,
+   52.5,
+   54.1
+  ],
+  [
+   1800.7266070409678,
+   52.5,
+   53.05
+  ]
+ ],
+ "published": 53.05,
+ "matches_published": true,
+ "incumbent": [
+  [
+   2,
+   4,
+   6,
+   11,
+   15,
+   16,
+   20,
+   21,
+   25,
+   26,
+   31,
+   36,
+   45,
+   49
+  ],
+  [
+   0,
+   3,
+   7,
+   8,
+   9,
+   10,
+   13,
+   17,
+   18,
+   19,
+   23,
+   27,
+   29,
+   32,
+   35,
+   38,
+   39,
+   42,
+   43,
+   44
+  ],
+  [
+   1,
+   5,
+   12,
+   14,
+   22,
+   24,
+   28,
+   30,
+   33,
+   34,
+   37,
+   40,
+   41,
+   46,
+   47,
+   48
+  ]
+ ],
+ "incumbent_source": "integer master",
+ "initial_solution": {
+  "covered": true,
+  "cost": 69.25,
+  "n_columns": 3,
+  "uncovered": [],
+  "time": 15.088005666038953,
+  "stages": {
+   "after_sequential": 4,
+   "after_repair": 1,
+   "after_ruin_recreate": 0
+  }
+ },
+ "grid_step": null,
+ "node_log": [
+  {
+   "id": 0,
+   "parent": null,
+   "depth": 0,
+   "branch": null,
+   "together": [],
+   "apart": [],
+   "parent_lb": null,
+   "blocked_columns": 0,
+   "lb": 52.5,
+   "lb_raw": 52.5,
+   "lb_kind": "lp",
+   "lp_value": 52.5,
+   "pricing_proven": true,
+   "artificial_active": false,
+   "colgen_iterations": 180,
+   "prove_timed_out": false,
+   "lagrangian_lb": 52.499997,
+   "lagrangian_lb_iteration": 180,
+   "n_candidates": 576,
+   "branch_on": [
+    0,
+    7,
+    0.5
+   ],
+   "outcome": "branched",
+   "children": [
+    1,
+    2
+   ],
+   "columns_added": 6566,
+   "time": 1524.2736822080333
+  },
+  {
+   "id": 1,
+   "parent": 0,
+   "depth": 1,
+   "branch": [
+    0,
+    7,
+    "together"
+   ],
+   "together": [
+    [
+     0,
+     7
+    ]
+   ],
+   "apart": [],
+   "parent_lb": 52.5,
+   "blocked_columns": 3404,
+   "lb": 52.5,
+   "lb_raw": 23.198583728796407,
+   "lb_kind": "lagrangian",
+   "lp_value": 53.05,
+   "pricing_proven": false,
+   "artificial_active": false,
+   "colgen_iterations": 79,
+   "prove_timed_out": false,
+   "lagrangian_lb": 23.198583728796407,
+   "lagrangian_lb_iteration": 75,
+   "n_candidates": 0,
+   "branch_on": [
+    0,
+    3,
+    1.0,
+    "fallback"
+   ],
+   "outcome": "branched",
+   "children": [
+    3,
+    4
+   ],
+   "columns_added": 1677,
+   "time": 261.15303937497083
+  }
+ ],
+ "config": {
+  "time_limit": 1800.0,
+  "node_time_limit": 1800.0,
+  "scorer": "most_fractional",
+  "seed": 0,
+  "pricing_time_limit": 30.0,
+  "pool_size": 50,
+  "artificial_cost": null,
+  "ip_time_limit": 10.0,
+  "restricted_k": 20,
+  "early_stop": 5,
+  "lns_time": 2.0,
+  "prove_time_limit": 1200.0,
+  "no_dual_pruning": false,
+  "no_valid_inequalities": false,
+  "initial_solution": true,
+  "initial_time": 5.0,
+  "initial_repair_time": 60.0,
+  "grid_round": false,
+  "quiet": true
+ },
+ "artificial_cost": 65.45,
+ "artificial_cost_final": 65.45,
+ "circuit": "circuit_artificial_instances_3.txt"
+}

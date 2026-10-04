@@ -6,14 +6,15 @@ Labeling (DP) pricing prototype measurements -> results/dp_prototype_report.json
 b25_0: the 5 fixture dual vectors (tests/fixtures/b25_0_duals.json), rule "subset" with
 and without the completion bound (5M labels, 6 GB memory guard), against the MILP prove
 call on the same duals (Threads=1). b50_0: the final duals of
-results/root_b50_0_artfix600.json, "subset" with the bound, 20M labels.
-This is the script that produced the committed report (run at commit 69bacad).
+results/runs/root_b50_0_artfix600.json, "subset" with the bound, 20M labels.
+This is the script that produced the committed report.
 """
 
 from __future__ import annotations
 
 import gc
 import json
+import os
 import time
 from collections import defaultdict
 
@@ -69,7 +70,11 @@ def main() -> None:
             row["bound" if pb else "nobound"] = run(inst, d["pi"], d["mu"], pb, 5_000_000, 6.0)
         print(json.dumps(row), flush=True)
         out.append(row)
-    with open("results/root_b50_0_artfix600.json") as f:
+    # the committed copy in results/runs/, else a fresh run in results/
+    src = "results/runs/root_b50_0_artfix600.json"
+    if not os.path.exists(src):
+        src = "results/root_b50_0_artfix600.json"
+    with open(src) as f:
         r = json.load(f)
     inst50 = load("b50_0")
     b50 = {"pi_pos": sum(p > 0 for p in r["final_pi"]), "max_pi": max(r["final_pi"]),

@@ -7,10 +7,17 @@ Tracked here (small, needed for the paper tables):
 - `grid_test.json`: outcome of `tests/test_grid.py::test_generated_columns_lie_on_the_grid`.
 - `dp_prototype_report.json`: labeling-pricing measurements (`dp_report.py`).
 
-Not tracked (gitignored): one JSON per run, plus batch logs (`batch_<tag>_<instance>.log`),
-the queue log (`queue.log`) and argument records (`summary_<name>.args`). They exist on
-the authors' machine and are available on request. The table below lists them as they
-were when this file was written.
+`runs/`: the per-run JSONs behind every summary CSV, table and figure (171 files):
+`tree_*`, `root_*` and `compact_*_vi` for each summary row (including the b25 rerun behind
+`tab_b25_rerun.tex`), plus
+`root_b50_0_artfix600.json`, the input of `dp_report.py`. `make_tables.py` reads them
+from here.
+
+Not tracked (gitignored): batch logs (`batch_<tag>_<instance>.log`), the queue log
+(`queue.log`), argument records (`summary_<name>.args`) and per-run JSONs of runs not
+behind any reported number. New runs write their JSON to `results/` directly. The table
+below lists the per-run JSONs on the authors' machine when this file was written; those
+not in `runs/` are available on request.
 
 | pattern | files | produced by |
 |---|---|---|
