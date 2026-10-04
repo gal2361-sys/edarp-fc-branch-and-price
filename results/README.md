@@ -7,11 +7,11 @@ Tracked here (small, needed for the paper tables):
 - `grid_test.json`: outcome of `tests/test_grid.py::test_generated_columns_lie_on_the_grid`.
 - `dp_prototype_report.json`: labeling-pricing measurements (`dp_report.py`).
 
-`runs/`: the per-run JSONs behind every summary CSV, table and figure (171 files):
+`runs/`: the per-run JSONs behind every summary CSV, table and figure (172 files):
 `tree_*`, `root_*` and `compact_*_vi` for each summary row (including the b25 rerun behind
-`tab_b25_rerun.tex`), plus
-`root_b50_0_artfix600.json`, the input of `dp_report.py`. `make_tables.py` reads them
-from here.
+Table 1), plus `root_b50_0_artfix600.json`, the input of `dp_report.py`, and
+`compact_b25_0_c0.json`, the run behind the root bound without valid inequalities.
+`make_tables.py` reads them from here.
 
 Not tracked (gitignored): batch logs (`batch_<tag>_<instance>.log`), the queue log
 (`queue.log`), argument records (`summary_<name>.args`) and per-run JSONs of runs not

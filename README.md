@@ -95,7 +95,7 @@ defaults to the tag). Run one batch at a time; timings are part of the results.
 
 | table | summaries it reads |
 |---|---|
-| `tab_b25` | `tree_v1_b25`, `compact_vi_b25` |
+| `tab_b25` | `tree_rerun_b25`, `compact_vi_b25` |
 | `tab_b50` | `tree_v2_b50`, `compact_vi_b50_b75` |
 | `tab_b75` | `tree_v2_b75`, `tree_v2_p120_b75`, `compact_vi_b50_b75` |
 | `tab_ablation` | the seven `abl_*` summaries |
@@ -106,8 +106,10 @@ summary to `results/summary_<name>.csv`):
 
 ```
 # tab_b25
-python run_batch.py tree b25 --tag tree_v1 --summary tree_v1_b25 -- --no-initial-solution
+python run_batch.py tree b25 --tag tree_rerun --summary tree_rerun_b25 -- --no-initial-solution
 python run_batch.py compact b25 --tag compact_vi_b25 -- --valid-inequalities --time-limit 1800
+# the run behind the root bound without valid inequalities quoted in the paper
+python run_compact.py b25_0 --time-limit 1800
 
 # tab_b50 and tab_b75 (the compact batch serves both)
 python run_batch.py tree b50 --tag tree_v2 --summary tree_v2_b50 -- --node-time-limit 1800
@@ -131,11 +133,13 @@ python dp_report.py
 
 Notes on code versions:
 
-- **tree_v1 batches** (`tree_v1_b25`, and `tree_v1_b50`/`tree_v1_b75`, which the report
-  quotes in text) were run before the initial-solution heuristic existed. The current
-  code with `--no-initial-solution` is the closest equivalent. It still differs in two
-  bookkeeping changes that do not affect the search: bounds are now also logged during
-  a node, and the LNS time limit is restored between nodes.
+- **tree_rerun_b25** (Table 1) used the current code with `--no-initial-solution`.
+- **tree_v1 batches** were run before the initial-solution heuristic existed.
+  `tree_v1_b25` is an earlier run of the same instances, kept for reference but behind
+  no number in the paper. `tree_v1_b50` and `tree_v1_b75` are quoted in the text. The
+  current code with `--no-initial-solution` is the closest equivalent to these runs. It
+  still differs in two bookkeeping changes that do not affect the search: bounds are now
+  also logged during a node, and the LNS time limit is restored between nodes.
 - **The compact model** and **the root ablation code** are unchanged since those
   batches were run.
 - **The tree_v2 batches** used the current code. `run_queue.sh` runs the three v2 tree
@@ -147,9 +151,7 @@ Then:
 python make_tables.py
 ```
 
-It writes the five tables `docs/paper/tables/tab_{b25,b50,b75,ablation,dp}.tex`
-(plus `tab_b25_rerun.tex` from `results/summary_tree_rerun_b25.csv`, the b25 tree rerun
-with the final code and `--no-initial-solution`, when that summary exists) and the figure
+It writes the five tables `docs/paper/tables/tab_{b25,b50,b75,ablation,dp}.tex` and the figure
 `docs/paper/figures/fig_bounds_b50_all.{pdf,png}` (lower and upper bounds over time for
 all 10 b50 instances, ours and compact+VI), and prints which files fed each one. The
 tables need only the tracked summaries, `results/dp_prototype_report.json` and
@@ -161,7 +163,8 @@ from there, or from `results/` for runs made after cloning.
 
 ## Results and JSON contents
 
-`results/` holds one JSON per run (local only), the tracked summaries, and logs.
+`results/` holds the tracked summaries and, locally, logs. The per-run JSONs behind
+the paper are committed in `results/runs/`; new runs write their JSON to `results/`.
 
 **All runs**: `instance`, `status`, `ub`, `lb`, `gap`, `time_total` and a
 `bound_log`, a list of `[time_s, lb, ub]` appended at every change of either bound.
@@ -230,7 +233,7 @@ bp/column.py          Column (one vehicle's plan), exact evaluation of a plan
 bp/published.py       parser for the published solution files
 bp/pricing.py         MILP pricing: restricted, early stop, prove call, dual pruning
 bp/pricing_lns.py     LNS pricing heuristic
-bp/pricing_dp.py      labeling pricing prototype (exact, not used in the tree)
+bp/pricing_dp.py      labeling pricing prototype (integer charging durations; not used in the tree)
 bp/master.py          restricted master LP, artificial columns, integer master
 bp/colgen.py          column generation loop, Lagrangian bound, stabilisation (flag)
 bp/tree.py            branch-and-price over Ryan-Foster pairs, bound log

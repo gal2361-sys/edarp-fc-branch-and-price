@@ -105,8 +105,10 @@ def by_instance(rows):
 
 # ------------------------------------------------------------------ tables
 
-def tab_b25(tag: str | None = None, out: str = "tab_b25.tex") -> str:
-    tag = tag or newest_tree("b25")
+B25_TREE_TAG = "tree_rerun"   # Table 1: the b25 rerun with the final code (--no-initial-solution)
+
+
+def tab_b25(tag: str = B25_TREE_TAG, out: str = "tab_b25.tex") -> str:
     key = out[:-4]
     tree = read_csv(f"summary_{tag}_b25.csv", key)
     comp = by_instance(read_csv("summary_compact_vi_b25.csv", key))
@@ -381,9 +383,6 @@ def main() -> None:
     os.makedirs(TAB, exist_ok=True)
     os.makedirs(FIG, exist_ok=True)
     tags = {"b25": tab_b25(), "b50": tab_size("b50"), "b75": tab_size("b75")}
-    # b25 rerun with the final code (--no-initial-solution), kept separate from tab_b25
-    if os.path.exists(os.path.join(RES, "summary_tree_rerun_b25.csv")):
-        tags["b25 rerun"] = tab_b25("tree_rerun", "tab_b25_rerun.tex")
     fig_tags = {"b50": tags["b50"][0]}
     tab_ablation()
     tab_dp()
